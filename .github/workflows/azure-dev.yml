@@ -1,0 +1,104 @@
+name: 'Azure Dev'
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - main
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AZURE_RESOURCE_GROUP_NAME: 'rg-${{ vars.AZURE_ENV_NAME }}'
+  AZURE_FNCAPP_NAME: 'fncapp-${{ vars.AZURE_ENV_NAME }}'
+  AZURE_APIM_NAME: 'apim-${{ vars.AZURE_ENV_NAME }}'
+  AZURE_OPENAI_NAME: 'aoai-${{ vars.AZURE_ENV_NAME }}'
+
+jobs:
+  build-test-deploy:
+    name: Build Test Deploy
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 7.x
+
+    - name: Restore NuGet packages
+      shell: bash
+      run: |
+        dotnet restore
+
+    - name: Build solution
+      shell: bash
+      run: |
+        dotnet build -c Release
+
+    - name: Test solution
+      shell: bash
+      run: |
+        dotnet test -c Release
+
+    - name: Create artifacts - Web
+      shell: bash
+      run: |
+        dotnet publish -c Release
+
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        client-id: ${{ vars.AZURE_CLIENT_ID }}
+        tenant-id: ${{ vars.AZURE_TENANT_ID }}
+        subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+    - name: Deploy API app to Azure
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: '${{ env.AZURE_FNCAPP_NAME }}-aoai'
+        package: src/SocialMediaAssistant.ApiApp/bin/Release/net7.0/publish
+
+    - name: Update APIM settings
+      shell: bash
+      run: |
+        functionKey=$(az functionapp keys list \
+          --resource-group "${{ env.AZURE_RESOURCE_GROUP_NAME }}" \
+          --name "${{ env.AZURE_FNCAPP_NAME }}-aoai" \
+          --query "functionKeys.default" \
+          --output tsv)
+
+        nv=$(az apim nv update \
+          --resource-group ${{ env.AZURE_RESOURCE_GROUP_NAME }} \
+          --service-name ${{ env.AZURE_APIM_NAME }} \
+          --named-value-id "X_FUNCTIONS_KEY_AOAI" \
+          --value $functionKey \
+          --secret true)
+
+    - name: Update API settings - API
+      shell: bash
+      run: |
+        endpoint=$(az cognitiveservices account show \
+          --resource-group "${{ env.AZURE_RESOURCE_GROUP_NAME }}" \
+          --name "${{ env.AZURE_OPENAI_NAME }}" \
+          --query "properties.endpoint" -o tsv)
+
+        apikey=$(az cognitiveservices account keys list \
+          --resource-group "${{ env.AZURE_RESOURCE_GROUP_NAME }}" \
+          --name "${{ env.AZURE_OPENAI_NAME }}" \
+          --query "key1" -o tsv)
+
+        appsettings=$(az functionapp config appsettings set \
+          --resource-group "${{ env.AZURE_RESOURCE_GROUP_NAME }}" \
+          --name "${{ env.AZURE_FNCAPP_NAME }}-aoai" \
+          --settings "OpenAIApi__Endpoint=$endpoint")
+
+        appsettings=$(az functionapp config appsettings set \
+          --resource-group "${{ env.AZURE_RESOURCE_GROUP_NAME }}" \
+          --name "${{ env.AZURE_FNCAPP_NAME }}-aoai" \
+          --settings "OpenAIApi__AuthKey=$apikey")
