@@ -3,7 +3,7 @@
   "info": {
     "title": "AOAI",
     "version": "1.0",
-    "description": "This is a set of API to provide AI assistant feature to generate APIM policies.",
+    "description": "This is a set of APIs that provides AI assistant features to generate social media marketing posts.",
     "license": {
       "name": "MIT",
       "url": "http://opensource.org/licenses/MIT"
@@ -37,11 +37,23 @@
         ],
         "parameters": [
           {
-            "name": "completionsPostRequest",
+            "name": "locale",
+            "in": "query",
+            "description": "This specifies the locale to generate the completion. The default value is `en-us`.",
+            "type": "string"
+          },
+          {
+            "name": "social",
+            "in": "query",
+            "description": "This specifies the social media to generate the completion. The default value is `twitter`.",
+            "type": "string"
+          },
+          {
+            "name": "completionsPostRequest-2",
             "in": "body",
             "schema": {
               "type": "string",
-              "example": "Show me the APIM policy document in general."
+              "example": "Generate a Facebook post promoting the Garage Hack event"
             },
             "description": "The prompt to generate the completion."
           }
@@ -59,7 +71,7 @@
               "type": "string"
             },
             "examples": {
-              "text/plain": "```xml\n<policies>\n  <inbound />\n  <backend>\n    <forward-request />\n  </backend>\n  <outbound />\n  <on-error />\n</policies>\n```"
+              "text/plain": "🔧🚗 Exciting News: Join us at the Garage Hack Event! 🚗🔧\r\n\r\nCalling all DIY enthusiasts, tinkerers, and innovators! Get ready to rev up your creativity at the Garage Hack Event, where we're turning garages into innovation hubs!\r\n\r\n📅 Date: [Insert Date]\r\n🕒 Time: [Insert Time]\r\n📍 Location: [Insert Location]\r\n\r\nAt Garage Hack, you can:\r\n✅ Unleash Your Creativity: Explore your wildest ideas and bring them to life.\r\n✅ Build Something Amazing: From gadgets to gizmos, we've got the tools and tech you need.\r\n✅ Collaborate and Connect: Network with fellow inventors and tech enthusiasts.\r\n✅ Win Prizes: Compete in fun challenges and win fantastic prizes.\r\n✅ Fuel Your Passion: Learn from expert speakers and gain new skills.\r\n\r\nWhether you're a seasoned maker or just curious about the world of DIY, this event is for you! Don't miss out on this incredible opportunity to turn your garage into a hub of innovation.\r\n\r\n🎟️ RSVP here: [Link to Registration]\r\n📣 Spread the word and bring your friends!\r\n\r\nGet ready to hack, build, and create at the Garage Hack Event! 🛠️ Let's turn our garages into the ultimate playground of innovation. See you there! 👋 #GarageHackEvent #InnovationHub #DIYRevolution"
             }
           },
           "400": {

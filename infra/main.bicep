@@ -58,8 +58,8 @@ var apps = [
       path: 'aoai'
       serviceUrl: 'https://fncapp-{{AZURE_ENV_NAME}}-{{SUFFIX}}.azurewebsites.net/api'
       referenceUrl: 'https://raw.githubusercontent.com/${gitHubUsername}/${gitHubRepositoryName}/${gitHubBranchName}/infra/openapi-{{SUFFIX}}.{{EXTENSION}}'
-      format: 'openapi-link'
-      extension: 'yaml'
+      format: 'openapi+json-link'
+      extension: 'json'
       subscription: true
       product: 'default'
       operations: []

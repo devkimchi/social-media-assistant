@@ -1,0 +1,130 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Social Media Marketing Assistant API",
+    "description": "This is a set of APIs that provides AI assistant features to generate social media marketing posts.",
+    "license": {
+      "name": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:7071/api"
+    }
+  ],
+  "paths": {
+    "/completions": {
+      "post": {
+        "tags": [
+          "completions"
+        ],
+        "summary": "Gets the completion from the OpenAI API",
+        "description": "This gets the completion from the OpenAI API.",
+        "operationId": "getCompletions",
+        "parameters": [
+          {
+            "name": "locale",
+            "in": "query",
+            "description": "This specifies the locale to generate the completion. The default value is `en-us`.",
+            "schema": {
+              "type": "string"
+            },
+            "x-ms-summary": "The locale to generate the completion."
+          },
+          {
+            "name": "social",
+            "in": "query",
+            "description": "This specifies the social media to generate the completion. The default value is `twitter`.",
+            "schema": {
+              "type": "string"
+            },
+            "x-ms-summary": "The social media to generate the completion."
+          }
+        ],
+        "requestBody": {
+          "description": "The prompt to generate the completion.",
+          "content": {
+            "text/plain": {
+              "schema": {
+                "type": "string"
+              },
+              "examples": {
+                "prompt": {
+                  "value": "Generate a Facebook post promoting the Garage Hack event"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "This returns the completion generated from the OpenAI API.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {
+                  "completion": {
+                    "value": "🔧🚗 Exciting News: Join us at the Garage Hack Event! 🚗🔧\r\n\r\nCalling all DIY enthusiasts, tinkerers, and innovators! Get ready to rev up your creativity at the Garage Hack Event, where we're turning garages into innovation hubs!\r\n\r\n📅 Date: [Insert Date]\r\n🕒 Time: [Insert Time]\r\n📍 Location: [Insert Location]\r\n\r\nAt Garage Hack, you can:\r\n✅ Unleash Your Creativity: Explore your wildest ideas and bring them to life.\r\n✅ Build Something Amazing: From gadgets to gizmos, we've got the tools and tech you need.\r\n✅ Collaborate and Connect: Network with fellow inventors and tech enthusiasts.\r\n✅ Win Prizes: Compete in fun challenges and win fantastic prizes.\r\n✅ Fuel Your Passion: Learn from expert speakers and gain new skills.\r\n\r\nWhether you're a seasoned maker or just curious about the world of DIY, this event is for you! Don't miss out on this incredible opportunity to turn your garage into a hub of innovation.\r\n\r\n🎟️ RSVP here: [Link to Registration]\r\n📣 Spread the word and bring your friends!\r\n\r\nGet ready to hack, build, and create at the Garage Hack Event! 🛠️ Let's turn our garages into the ultimate playground of innovation. See you there! 👋 #GarageHackEvent #InnovationHub #DIYRevolution"
+                  }
+                }
+              }
+            },
+            "x-ms-summary": "The completion generated from the OpenAI API."
+          },
+          "400": {
+            "description": "This indicates the request is invalid.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {
+                  "error": {
+                    "value": "The prompt is required."
+                  }
+                }
+              }
+            },
+            "x-ms-summary": "Invalid request."
+          },
+          "500": {
+            "description": "This indicates the server is not working as expected.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {
+                  "error": {
+                    "value": "Internal server error."
+                  }
+                }
+              }
+            },
+            "x-ms-summary": "Internal server error."
+          }
+        },
+        "security": [
+          {
+            "function_key": []
+          }
+        ],
+        "x-ms-visibility": "important"
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "function_key": {
+        "type": "apiKey",
+        "name": "x-functions-key",
+        "in": "header"
+      }
+    }
+  }
+}

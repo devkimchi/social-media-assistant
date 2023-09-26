@@ -5,22 +5,41 @@ using SocialMediaAssistant.Services.OpenAI.Configurations;
 
 namespace SocialMediaAssistant.Services.OpenAI;
 
+/// <summary>
+/// This provides interfaces to the <see cref="OpenAIService"/> class.
+/// </summary>
 public interface IOpenAIService
 {
+    /// <summary>
+    /// Gets the completions from the OpenAI API.
+    /// </summary>
+    /// <param name="prompt">Prompt text.</param>
+    /// <param name="socialMedia"><see cref="SocialMediaType"/> value.</param>
+    /// <param name="locale">Locale value.</param>
+    /// <returns>Returns the completed result.</returns>
     Task<string> GetCompletionsAsync(string prompt, SocialMediaType socialMedia = SocialMediaType.Twitter, string locale = "en-us");
 }
 
+/// <summary>
+/// This represents the service entity for the OpenAI API.
+/// </summary>
 public class OpenAIService : IOpenAIService
 {
     private readonly OpenAIApiSettings _openAISettings;
     private readonly PromptSettings _promptSettings;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="OpenAIService"/> class.
+    /// </summary>
+    /// <param name="openAISettings"><see cref="OpenAIApiSettings"/> instance.</param>
+    /// <param name="promptSettings"><see cref="PromptSettings"/> instance.</param>
     public OpenAIService(OpenAIApiSettings openAISettings, PromptSettings promptSettings)
     {
         this._openAISettings = openAISettings ?? throw new ArgumentNullException(nameof(openAISettings));
         this._promptSettings = promptSettings ?? throw new ArgumentNullException(nameof(promptSettings));
     }
 
+    /// <inheritdoc />
     public async Task<string> GetCompletionsAsync(string prompt, SocialMediaType socialMedia = SocialMediaType.Twitter, string locale = "en-us")
     {
         var endpoint = new Uri(this._openAISettings.Endpoint);

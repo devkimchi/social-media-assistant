@@ -1,6 +1,6 @@
 - name: 'OpenApi__DocVersion'
   value: '1.0.0'
 - name: 'OpenApi__DocTitle'
-  value: 'APIM Policy Assistant API'
+  value: 'Social Media Marketing Assistant API'
 - name: 'OpenApi__DocDescription'
-  value: 'This is a set of API to provide AI assistant feature to generate APIM policies.'
+  value: 'This is a set of APIs that provides AI assistant features to generate social media marketing posts.'

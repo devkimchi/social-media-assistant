@@ -19,4 +19,14 @@ public enum SocialMediaType
     /// Identifies Instagram.
     /// </summary>
     Instagram,
+
+    /// <summary>
+    /// Identifies Threads.
+    /// </summary>
+    Threads,
+
+    /// <summary>
+    /// Identifies YouTube.
+    /// </summary>
+    YouTube,
 }

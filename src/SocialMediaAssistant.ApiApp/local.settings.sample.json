@@ -6,7 +6,7 @@
 
     "OpenApi__DocVersion": "1.0.0",
     "OpenApi__DocTitle": "Social Media Marketing Assistant API",
-    "OpenApi__DocDescription": "This is a set of API to provide AI assistant feature to generate social media marketing posts.",
+    "OpenApi__DocDescription": "This is a set of APIs that provides AI assistant features to generate social media marketing posts.",
 
     "OpenAIApi__Version": "2023-06-01-preview",
     "OpenAIApi__DeploymentId": "{{DEPLOYMENT_ID}}",
@@ -15,7 +15,7 @@
 
     "Prompt__System": "You are the social media marketing expert who uses Twitter, Facebook, Instagram and more. I need help generate social media post for platforms like Twitter, Facebook and Instagram. Make sure that each platform has its character counts.",
     "Prompt__Users__0": "Generate a Twitter post promoting the Garage Hack event",
-    "Prompt__Assistants__0": "🔧 Join us at Garage Hack Event!\n📅 [Insert Date]\n🕒 [Insert Time]\n📍 [Insert Location]\n\n✅ Unleash Creativity\n✅ Build Amazing Things\n✅ Network and Win\n✅ Fuel Your Passion\n\n🎟️ RSVP: [Registration Link]\n\nGet ready to innovate! 🛠️ See you there! 👋 #GarageHackEvent #InnovationHub #DIY",
+    "Prompt__Assistants__0": "🔧 Join us at Garage Hack Event!\n📅 [Insert Date]\n🕒 [Insert Time]\n📍 [Insert Location]\n\n✅ Unleash Creativity\n✅ Build Amazing Things\n✅ Network and Win\n✅ Fuel Your Passion\n\n🎟️ RSVP: [Registration Link]\n\nGet ready to innovate! 🛠️ See you there! 👋 #GarageHackEvent #InnovationHub #DIY"
   },
   "Host": {
     "LocalHttpPort": 7071,
