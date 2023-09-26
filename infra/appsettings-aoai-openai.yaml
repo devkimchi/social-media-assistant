@@ -1,0 +1,6 @@
+- name: 'OpenAIApi__DeploymentId'
+  value: 'model-gpt35turbo16k'
+- name: 'OpenAIApi__Endpoint'
+  value: 'to_be_updated'
+- name: 'OpenAIApi__AuthKey'
+  value: 'to_be_updated'

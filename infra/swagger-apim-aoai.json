@@ -1,0 +1,89 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "AOAI",
+    "version": "1.0",
+    "description": "This is a set of API to provide AI assistant feature to generate APIM policies.",
+    "license": {
+      "name": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "apim-{{AZURE_ENV_NAME}}.azure-api.net",
+  "basePath": "/aoai",
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "apiKeyHeader": {
+      "type": "apiKey",
+      "name": "Ocp-Apim-Subscription-Key",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "apiKeyHeader": []
+    }
+  ],
+  "paths": {
+    "/completions": {
+      "post": {
+        "description": "This gets the completion from the OpenAI API.",
+        "operationId": "getCompletions",
+        "summary": "Gets the completion from the OpenAI API",
+        "tags": [
+          "completions"
+        ],
+        "parameters": [
+          {
+            "name": "completionsPostRequest",
+            "in": "body",
+            "schema": {
+              "type": "string",
+              "example": "Show me the APIM policy document in general."
+            },
+            "description": "The prompt to generate the completion."
+          }
+        ],
+        "consumes": [
+          "text/plain"
+        ],
+        "produces": [
+          "text/plain"
+        ],
+        "responses": {
+          "200": {
+            "description": "This returns the completion generated from the OpenAI API.",
+            "schema": {
+              "type": "string"
+            },
+            "examples": {
+              "text/plain": "```xml\n<policies>\n  <inbound />\n  <backend>\n    <forward-request />\n  </backend>\n  <outbound />\n  <on-error />\n</policies>\n```"
+            }
+          },
+          "400": {
+            "description": "This indicates the request is invalid.",
+            "schema": {
+              "type": "string"
+            },
+            "examples": {
+              "text/plain": "The prompt is required."
+            }
+          },
+          "500": {
+            "description": "This indicates the server is not working as expected.",
+            "schema": {
+              "type": "string"
+            },
+            "examples": {
+              "text/plain": "Internal server error."
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {},
+  "tags": []
+}
