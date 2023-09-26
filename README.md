@@ -4,7 +4,7 @@ This provides a total solution of generating social media posts for online marke
 
 ## Architecture
 
-TBD
+![Architecture](./assets/architecture.png)
 
 ## Prerequisites
 
@@ -15,6 +15,7 @@ TBD
 - [GitHub CLI](https://cli.github.com)
 - [Microsoft 365 Developer Program](https://learn.microsoft.com/office/developer-program/microsoft-365-developer-program?WT.mc_id=dotnet-108200-juyoo)
 - [Power Apps Developer Plan](https://learn.microsoft.com/power-platform/developer/plan?WT.mc_id=dotnet-108200-juyoo)
+- [Power Platform CLI](https://learn.microsoft.com/power-platform/developer/cli/introduction?WT.mc_id=dotnet-108200-juyoo)
 
 ## Getting Started
 
@@ -64,7 +65,7 @@ TBD
 
 ## Local Development
 
-Use `SocialMediaAssistant.sln` with Visual Studio or Visual Studio Code with the C# Dev Kit extension.
+Use `SocialMediaAssistant.sln` with [Visual Studio](https://visualstudio.microsoft.com/downloads?WT.mc_id=dotnet-108200-juyoo) or [Visual Studio Code](https://code.visualstudio.com?WT.mc_id=dotnet-108200-juyoo) with the [C# Dev Kit extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit&WT.mc_id=dotnet-108200-juyoo).
 
 ### `local.settings.json` &ndash; `SocialMediaAssistant.ApiApp`
 
@@ -80,3 +81,9 @@ Use `SocialMediaAssistant.sln` with Visual Studio or Visual Studio Code with the
    - `{{AZURE_ENV_NAME}}`: Azure environment name. It looks like `social****` where `****` is a random number.
    - `{{AOAI_API_KEY}}`: API Key of Azure OpenAI Service.
    - `{{DEPLOYMENT_ID}}`: Azure OpenAI Service deployment ID. It looks like `model-gpt35turbo16k`.
+
+### Importing Power Automate Solution
+
+1. Open [Power Automate](https://make.powerautomate.com?WT.mc_id=dotnet-108200-juyoo).
+1. Import solution from `SocialMediaPostingAssistant.zip`.
+1. Update connection reference links in the `SocialMediaPostingAssistant` flow.
